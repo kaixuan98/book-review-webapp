@@ -1,2 +1,3 @@
-# book-review-webapp
-This is a book review web application 
+# Project 1
+
+Web Programming with Python and JavaScript
