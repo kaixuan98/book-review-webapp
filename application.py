@@ -1,16 +1,17 @@
 import os
-from flask import Flask, session
+
+from flask import Flask, session 
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from flask import render_template , request ,url_for , redirect
+#added myself 
+from flask import render_template , url_for , redirect , request  
 from flask_bootstrap import Bootstrap
-from models import * 
-from sqlalchemy.exc import IntegrityError
+
 
 
 app = Flask(__name__)
-app.secret_key = "thisisasecretKey"
+Bootstrap(app)
 
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
@@ -23,62 +24,80 @@ Session(app)
 
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"))
+# session maker generate a new session 
 db = scoped_session(sessionmaker(bind=engine))
 
-
 @app.route("/")
+@app.route("/home")
 def index():
     return "Project 1: TODO"
 
-@app.route("/login" , methods=["GET" ,"POST"]) 
+# Login : I need session, when the user login , will stay in that session so when they do a query , will not distrub the database
+# login need to query my database so that I can 
+@app.route("/login" , methods=["POST" ,"GET"])
 def login():
-    # if request.method == "POST":
-    #     user = request.form["username"]
-    #     session['user'] = user 
-    #     return redirect(url_for("home"))
-    # else:
-    
-    buttonMessage = "Login" # since it is a inherited form so i need to rename the button 
-    return render_template('login.html', buttonMessage = buttonMessage)
+    # if someone is filling in the form need to check with the data base
+    # if it in the database then i need to redirected them to their session 
+    if request.method == "POST":
+        inputEmail = request.form["email"]
+        inputPassword = request.form["password"]
+        session["user"] = inputEmail
+        return redirect(url_for('profile'))
+    else: 
+        # if the user already in the session ( already login ) we can redirect them back to their profile page
+        if "user" in session:
+            return redirect(url_for("profile"))  
 
-@app.route("/register" , methods=['GET' , 'POST'])
+        return render_template("login.html" , buttonMsg ='Login')
+
+# Register: I need to take in the username , email and password and save it into my database 
+# How can i pass those variable into the database??
+# making sure their username and password is unqiue then I can redirect them to their profile page 
+# if they are repeated username = need to flash message that say it is a repeated message ( flash messages)
+
+
+@app.route("/register" , methods=["GET","POST"])
 def register():
-    buttonMessage = "Register"
-    
-    #get info from the form
-    if request.method =='POST':
-        try:
-            username = request.form.get("username")
-            email = request.form.get("email")
-            password = request.form.get("password")
-            user = User(username = username , email= email , password=password)
-            db.add(user)
+    if request.method == "POST":
+        inputUsername = request.form["username"]
+        inputEmail = request.form["email"]
+        inputPassword = request.form["password"]
+
+        # make sure no same username
+        if db.execute("SELECT * FROM \"user\" WHERE username = :username AND email = :email AND password = :password " , 
+                        {"username": inputUsername, "email": inputEmail , "password": inputPassword}).rowcount == 0 : 
+            # add into database 
+            db.execute("INSERT INTO \"user\" (username , email , password) VALUES (:username , :email , :password)" , 
+                        {"username": inputUsername , "email": inputEmail , "password": inputPassword})
             db.commit()
-        except IntegrityError:
-            db.rollback()
-            errorMsg = "This user already created an account !!! "
-            return render_template('register.html',buttonMessage=buttonMessage , errorMsg=errorMsg)
-        #user.add_profile(bio , favGenre)
+            return render_template("profile.html" , username=inputUsername)
+        else: 
+            # flash message that this user already exist 
+            return render_template("register.html" , buttonMsg ="Register" , message ="This user already exists!!! Try Again")
+    else:
+        return render_template("register.html" , buttonMsg ="Register")
 
-    return render_template('register.html',buttonMessage=buttonMessage)
-
-@app.route("/home", methods=['POST'])
-def home():
+@app.route("/profile")
+def profile():
+    # if there is a user in this session , i will redirect them back tp their profile page
     if "user" in session:
         user = session["user"]
-        return f"<h1>{user}</h1>"
-    else:
-        return redirect(url_for('login'))
+        return render_template("profile.html" , username=user)
+    else: 
+    # if there the user is not in the session , i will redirect them to the login page 
+    # this means that I havent login / i left my brower and I need to login again 
+    # so i can redirect them to the login page
+        return redirect(url_for("login"))
+    
+    return render_template("profile.html" , username=user)
 
-
-@app.route("/profile" , methods=['POST'])
-def profile():
-    return render_template('profile.html')
+# this is to remove the user 
+@app.route("/logout")
+def logout():
+    session.pop("user" , None)
+    return redirect(url_for("login"))
 
 
 @app.route("/search")
 def search():
-    return render_template('search.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    return render_template("search.html")

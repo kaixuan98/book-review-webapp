@@ -1,8 +1,19 @@
 {%extends "login.html"%}
 
-{% block extra %}
-<div class="form-group" >
-    <label for="InputEmail1">Email</label>
-    <input type="text" class="form-control" id="InputEmail" placeholder="Enter Email" name="email">
-  </div>
-{%endblock%}
+
+{% block extraInput %}
+<div class="form-group ">
+    <label for="Username">Username</label>
+    <div class="input-group pb-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon3"><ion-icon name="person-circle-outline"></ion-icon></span>
+        </div>
+        <input type="text" name="username"  class="form-control" placeholder="Username" id="username" aria-label="username" aria-describedby="basic-addon3">
+      </div>
+</div>
+
+{% endblock %}
+
+{%block message%}
+<!-- I can add the Already have an account message  -->
+{%endblock %}

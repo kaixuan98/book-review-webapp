@@ -1,20 +1,26 @@
-{% extends "layout.html"  %}
-{% block content %}
-            <div class="d-flex align-items-center ">
-                <div id="quotes" class="d-flex flex-md-column mb-3 ">
-                    
-                </div>
+{%extends "layout.html"%}
 
-                 <div class="input-group d-inline-flex align-items-center p-5" id="searchbar">
-                    <input type="text" class="form-control" placeholder="Search with title, author, ISBN " aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button"><ion-icon name="search-outline"></ion-icon></button>
-                    </div>
-                </div>
+{% block Content%}
 
-                <div id="result" class="d-flex flex-md-column mb-3 ">
-                </div>
+    <div id="quotes" ></div>
 
+
+    <div id="searchBar" class="container pt-5">
+        <div class="row justify-content-lg-center">
+            <div class="col-md-10">
+                <input class="form-control" placeholder="Search with author, title, IBSN" > 
             </div>
+            <div class="col-md-2">
+                <button class="btn btn-outline-primary"><ion-icon name="search-outline"></ion-icon></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="result" class="container pt-5">
+        <!-- need a for loop here to display the search result -->
+    </div>
+
+
+
 
 {% endblock %}
