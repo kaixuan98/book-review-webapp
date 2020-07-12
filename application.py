@@ -38,16 +38,25 @@ def index():
 def login():
     # if someone is filling in the form need to check with the data base
     # if it in the database then i need to redirected them to their session 
+    message=''
     if request.method == "POST":
         inputEmail = request.form["email"]
         inputPassword = request.form["password"]
-        session["user"] = inputEmail
-        return redirect(url_for('profile'))
+        # need to do a validation if that user in my database 
+        user = db.execute("SELECT * FROM \"user\" WHERE email = :email AND password = :password" ,{"email": inputEmail , "password" : inputPassword} ).fetchone()
+        if user is None:
+            return render_template("login.html" , buttonMsg ='Login' , message="User does not exists. Please register before login!!") 
+        # elif user.password is inputPassword:
+        #     return render_template("login.html" , buttonMsg ='Login' , message=user.password) 
+        else:
+            session["user"] = user.username
+            return redirect(url_for('profile'))
+            
     else: 
         # if the user already in the session ( already login ) we can redirect them back to their profile page
         if "user" in session:
             return redirect(url_for("profile"))  
-
+                
         return render_template("login.html" , buttonMsg ='Login')
 
 # Register: I need to take in the username , email and password and save it into my database 

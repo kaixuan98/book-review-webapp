@@ -1,0 +1,26 @@
+$primary-colour: #775144;
+$second-colour:#F7DBA7;
+$background-colour : #f5f5f5; 
+$third-colour:#C09891;
+$min-width: 768px; 
+$font : 'Josefin Sans'; 
+
+
+
+$theme-colours:(
+    "primary" : $primary-colour, 
+    "secondary1" : $second-colour,
+    "third" : $third-colour
+
+); 
+
+$input-btn-font-family: $font; 
+$body-color: $primary-colour ; 
+$link-hover-decoration: none !important ; 
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../node_modules/bootstrap/scss/buttons";
+@import "../../node_modules/bootstrap/scss/forms"; 
+
+
+
