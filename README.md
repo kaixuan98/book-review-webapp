@@ -24,7 +24,7 @@ The webapp contain the following feature:
  ---
  
  <h3>Extra material in the project.  </h3>
- -Import.py 
+ -Import.py ( Still working on the importcsv branch ) 
     </br> The import.py is the python script that used to import books.csv into the database 
     </br> The data been seperated into different individual tables to improve data consistency. 
 
