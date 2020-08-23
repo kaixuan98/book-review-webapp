@@ -9,14 +9,22 @@
         <h1 > {{buttonMsg}} </h1>
         <p  class="font-weight-light pb-3">Start your journey with us </p>
 
-        
-        <!-- <div class="alert alert-success" role="alert"> -->
-            <!-- {{ message}} -->
-            <!-- Login Successfully !!!  -->
-        <!-- </div> -->
-        <div class="alert alert-danger" role="alert">
-            {{message}}
-          </div>
+        {%with messages = get_flashed_messages(with_categories=true)%}
+            {% if messages%}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                  <div class="alert alert-danger" role="alert">
+                      {{message}}
+                  </div>
+                {% else%}
+                   <div class="alert alert-success" role="alert">
+                      {{ message}}
+                    </div>
+                {% endif %}
+
+                {%endfor%}
+            {% endif %}
+        {%endwith%}
 
         {% block extraInput %}
 
@@ -31,29 +39,17 @@
             <input type="email" name="email" class="form-control" placeholder="Email" id="exampleInputEmail1" aria-label="Email" aria-describedby="basic-addon1">
           </div>
         </div>
-
-
-        <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <div class="input-group pb-2">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon2"><ion-icon name="key-outline"></ion-icon></span>
-            </div>
-            <input type="password" name="password" class="form-control" placeholder="Password" id="exampleInputPassword1" aria-label="Password" aria-describedby="basic-addon2">
-          </div>
-        <div class="d-flex justify-content-center pt-2"> 
-            <button type="submit" class="btn btn-outline-primary">{{buttonMsg}}</button> 
+        <div class="form-group" >
+          <label for="InputPassword">Password</label>
+          <input type="password" class="form-control" id="InputPassword " placeholder="Password" name="password">
         </div>
+        
+        <button type="submit" class="btn btn-primary" >{{buttonMessage}}</button>
 
-        {%block message%}
-
-        {%endblock %}
-
+        <!-- <div action="{{url_for('register')}}" method="POST">
+          Don't have an Account <a href="{{url_for('register')}}">Register</a> here !!
+        </div> -->
+      </form>
     </div>
-</div>
-</div>
-
-</form>
-
-
-{% endblock %}
+    
+  {% endblock %}    
