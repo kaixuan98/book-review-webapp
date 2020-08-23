@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+<<<<<<< Updated upstream
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -63,4 +64,59 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="{{url_for('static' , filename='js/bootstrap.bundle.min.js')}}"></script>
   </body>
+=======
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coffee and Books</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand ml-3" href="#"><img src="{{url_for('static', filename='nav-bar-logo.png')}}" alt="Coffee and Books" height="40px"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> 
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-collapse collapse justify-content-between"></div>
+                <ul class ="navbar-nav ml-5 ">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#"> Reviews </a>
+                    </li>
+                </ul>
+                
+                <ul class ="navbar-nav ml-5 ">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#"> Bookshelf </a>
+                    </li>
+                </ul>
+                
+                <ul class ="navbar-nav ml-5 ">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#"><ion-icon name="search-outline"></ion-icon></a>
+                    </li>
+                </ul>
+
+                <ul class ="navbar-nav ml-5 ">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#"><ion-icon name="person-circle-outline"></ion-icon></a>
+                    </li>
+                </ul>                  
+            </div>
+          </div>       
+        </nav>
+
+        {% block content %}
+        
+        {% endblock %}
+
+
+
+        <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+
+</body>
+>>>>>>> Stashed changes
 </html>
