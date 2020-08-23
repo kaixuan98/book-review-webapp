@@ -3,12 +3,8 @@ from flask import Flask, session
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-<<<<<<< Updated upstream
-from flask import render_template , request ,url_for , redirect
-=======
 #added myself 
 from flask import render_template , url_for , redirect , request , flash
->>>>>>> Stashed changes
 from flask_bootstrap import Bootstrap
 from models import * 
 from sqlalchemy.exc import IntegrityError
@@ -37,18 +33,6 @@ def index():
 
 @app.route("/login" , methods=["GET" ,"POST"]) 
 def login():
-<<<<<<< Updated upstream
-    # if request.method == "POST":
-    #     user = request.form["username"]
-    #     session['user'] = user 
-    #     return redirect(url_for("home"))
-    # else:
-    
-    buttonMessage = "Login" # since it is a inherited form so i need to rename the button 
-    return render_template('login.html', buttonMessage = buttonMessage)
-
-@app.route("/register" , methods=['GET' , 'POST'])
-=======
     # if someone is filling in the form need to check with the data base
     # if it in the database then i need to redirected them to their session 
     message=''
@@ -81,7 +65,6 @@ def login():
 
 
 @app.route("/register" , methods=["GET","POST"])
->>>>>>> Stashed changes
 def register():
     buttonMessage = "Register"
     
@@ -94,13 +77,6 @@ def register():
             user = User(username = username , email= email , password=password)
             db.add(user)
             db.commit()
-<<<<<<< Updated upstream
-        except IntegrityError:
-            db.rollback()
-            errorMsg = "This user already created an account !!! "
-            return render_template('register.html',buttonMessage=buttonMessage , errorMsg=errorMsg)
-        #user.add_profile(bio , favGenre)
-=======
             flash("Succesfully created an account !!!! ", 'message')
             return render_template("profile.html" , username=inputUsername)
         else: 
@@ -109,7 +85,6 @@ def register():
             return render_template("register.html" , buttonMsg ="Register")
     else:
         return render_template("register.html" , buttonMsg ="Register")
->>>>>>> Stashed changes
 
     return render_template('register.html',buttonMessage=buttonMessage)
 
@@ -121,19 +96,12 @@ def home():
     else:
         return redirect(url_for('login'))
 
-<<<<<<< Updated upstream
-
-@app.route("/profile" , methods=['POST'])
-def profile():
-    return render_template('profile.html')
-=======
 # this is to remove the user 
 @app.route("/logout")
 def logout():
     session.pop("user" , None)
     flash("Logout Successfully !!! " , 'message')
     return redirect(url_for("login"))
->>>>>>> Stashed changes
 
 
 @app.route("/search")
