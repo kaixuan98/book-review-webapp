@@ -3,7 +3,12 @@ from flask import Flask, session
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+<<<<<<< Updated upstream
 from flask import render_template , request ,url_for , redirect
+=======
+#added myself 
+from flask import render_template , url_for , redirect , request , flash
+>>>>>>> Stashed changes
 from flask_bootstrap import Bootstrap
 from models import * 
 from sqlalchemy.exc import IntegrityError
@@ -32,6 +37,7 @@ def index():
 
 @app.route("/login" , methods=["GET" ,"POST"]) 
 def login():
+<<<<<<< Updated upstream
     # if request.method == "POST":
     #     user = request.form["username"]
     #     session['user'] = user 
@@ -42,6 +48,40 @@ def login():
     return render_template('login.html', buttonMessage = buttonMessage)
 
 @app.route("/register" , methods=['GET' , 'POST'])
+=======
+    # if someone is filling in the form need to check with the data base
+    # if it in the database then i need to redirected them to their session 
+    message=''
+    if request.method == "POST":
+        inputEmail = request.form["email"]
+        inputPassword = request.form["password"]
+        # need to do a validation if that user in my database 
+        user = db.execute("SELECT * FROM \"user\" WHERE email = :email AND password = :password" ,{"email": inputEmail , "password" : inputPassword} ).fetchone()
+        if user is None:
+            flash("User does not exists. Please register before login!!", 'error')
+            return render_template("login.html" , buttonMsg ='Login') 
+        # elif user.password is inputPassword:
+        #     return render_template("login.html" , buttonMsg ='Login' , message=user.password) 
+        else:
+            #flash("Login Successfully", 'message')
+            session["user"] = user.username
+            return redirect(url_for('profile'))
+            
+    else: 
+        # if the user already in the session ( already login ) we can redirect them back to their profile page
+        if "user" in session:
+            return redirect(url_for("profile"))  
+                
+        return render_template("login.html" , buttonMsg ='Login')
+
+# Register: I need to take in the username , email and password and save it into my database 
+# How can i pass those variable into the database??
+# making sure their username and password is unqiue then I can redirect them to their profile page 
+# if they are repeated username = need to flash message that say it is a repeated message ( flash messages)
+
+
+@app.route("/register" , methods=["GET","POST"])
+>>>>>>> Stashed changes
 def register():
     buttonMessage = "Register"
     
@@ -54,11 +94,22 @@ def register():
             user = User(username = username , email= email , password=password)
             db.add(user)
             db.commit()
+<<<<<<< Updated upstream
         except IntegrityError:
             db.rollback()
             errorMsg = "This user already created an account !!! "
             return render_template('register.html',buttonMessage=buttonMessage , errorMsg=errorMsg)
         #user.add_profile(bio , favGenre)
+=======
+            flash("Succesfully created an account !!!! ", 'message')
+            return render_template("profile.html" , username=inputUsername)
+        else: 
+            # flash message that this user already exist 
+            flash("This user already exists!!! Try Again" , 'error')
+            return render_template("register.html" , buttonMsg ="Register")
+    else:
+        return render_template("register.html" , buttonMsg ="Register")
+>>>>>>> Stashed changes
 
     return render_template('register.html',buttonMessage=buttonMessage)
 
@@ -70,10 +121,19 @@ def home():
     else:
         return redirect(url_for('login'))
 
+<<<<<<< Updated upstream
 
 @app.route("/profile" , methods=['POST'])
 def profile():
     return render_template('profile.html')
+=======
+# this is to remove the user 
+@app.route("/logout")
+def logout():
+    session.pop("user" , None)
+    flash("Logout Successfully !!! " , 'message')
+    return redirect(url_for("login"))
+>>>>>>> Stashed changes
 
 
 @app.route("/search")

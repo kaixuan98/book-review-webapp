@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 {% extends "layout.html" %}
 
 {% block content %}
@@ -9,6 +10,48 @@
         <div class="form-group" >
           <label for="InputUsername">Username</label>
           <input type="text" class="form-control" id="InputUsername" placeholder="Enter Username" name="username">
+=======
+{%extends "layout.html"%}
+
+{% block Content %}
+
+
+<form class="pt-5 px-3 " action="#" method="post">
+    <div class = "row justify-content-center">
+    <div class = "col-md-6 ">
+        <h1 > {{buttonMsg}} </h1>
+        <p  class="font-weight-light pb-3">Start your journey with us </p>
+
+        {%with messages = get_flashed_messages(with_categories=true)%}
+            {% if messages%}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                  <div class="alert alert-danger" role="alert">
+                      {{message}}
+                  </div>
+                {% else%}
+                   <div class="alert alert-success" role="alert">
+                      {{ message}}
+                    </div>
+                {% endif %}
+
+                {%endfor%}
+            {% endif %}
+        {%endwith%}
+
+        {% block extraInput %}
+
+        {% endblock %}
+  
+        <div class="form-group ">
+        <label for="exampleInputEmail1">Email address</label>
+        <div class="input-group pb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"><ion-icon name="mail-outline"></ion-icon></span>
+            </div>
+            <input type="email" name="email" class="form-control" placeholder="Email" id="exampleInputEmail1" aria-label="Email" aria-describedby="basic-addon1">
+          </div>
+>>>>>>> Stashed changes
         </div>
         <div class="form-group" >
           <label for="InputPassword">Password</label>
