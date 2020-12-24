@@ -1,5 +1,7 @@
+
 {% extends "layout.html" %}
 
+<!-- Profile page after login -->
 
 {%with messages = get_flashed_messages(with_categories=true)%}
             {% if messages%}
@@ -19,7 +21,20 @@
         {%endwith%}
 
 {% block Content%}
+<div id = "profile">
+  <h1 class="text-center pt-3">Welcome , {{username}}</h1>
+  <div> 
+    <h4 class="text-justify pl-5">Want to Read</h4>
+  </div>
+  <div> 
+    <h4 class="text-justify pl-5">Reading</h4>
+  </div>
+  <div> 
+    <h4 class="text-justify pl-5">Finished</h4>
+  </div>
+</div>
 
-<h1>Welcome , {{username}}</h1>
+
+
 
 {% endblock %}

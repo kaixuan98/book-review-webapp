@@ -5,8 +5,9 @@ from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 #added myself 
-from flask import render_template , url_for , redirect , request  , flash
+from flask import render_template , url_for , redirect , request  , flash, jsonify
 from flask_bootstrap import Bootstrap
+import requests, json
 
 
 
@@ -104,13 +105,47 @@ def profile():
     return render_template("profile.html" , username=user)
 
 # this is to remove the user 
-@app.route("/logout")
+@app.route("/logout", methods = ['GET', 'POST'])
 def logout():
     flash('Logout Successfully!' , 'message')
     session.pop("user" , None)
     return redirect(url_for("login"))
 
 
-@app.route("/search")
+
+@app.route("/search",methods = ['GET', 'POST'])
 def search():
+    #when user click on the search button will start accesing the api 
+    count = 0
+    allResult = []
+    if request.method == "POST":
+        searchInput = request.form["search"]
+        key="AIzaSyAlxOzntVoCg_q3MZc_pYgBeOSyuOLRp9o"
+        res = requests.get(f"https://www.googleapis.com/books/v1/volumes?q={searchInput}&key={key}")
+        #loop the raw data from google
+        result = json.loads(res.text)
+        if result is None:
+            return abort(404)
+        else: 
+            for r in result['items']:
+                if count < 10: 
+                    count = count + 1 
+                    try: 
+                        # some of the data does not have an image and search info 
+                        eachResult ={
+                            "self_link" : r['selfLink'],
+                            "title" : r['volumeInfo']['title'],
+                            "authors" : r['volumeInfo']['authors'],
+                            "categories" : r['volumeInfo']['categories'],
+                            "avgRating" : r ['volumeInfo']['averageRating'],
+                            "img" : r['volumeInfo']['imageLinks']['smallThumbnail'],
+                            "description" : r['searchInfo']['textSnippet'], 
+                        }
+                        allResult.append(eachResult)
+                        # return render_template("search.html" , results = r )
+                    except KeyError:
+                        pass 
+                    #print(img)
+            return render_template("search.html" , results =allResult)
+
     return render_template("search.html")

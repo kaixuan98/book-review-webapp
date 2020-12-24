@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Coffee and Books</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='sass/custom.css') }}"> 
 </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-        <a class="navbar-brand" href="#"><svg  width="300" height="50"src="{{url_for('static' , filename='assets/logo.svg')}}"></svg></a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <a class="navbar-brand" href="/home"><img width="300" height="50" src="{{url_for('static',filename='assets/logo.svg')}}"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,8 +27,8 @@
             </li>
             
             <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-secondary1 my-2 my-sm-0" type="submit"><ion-icon name="search-outline"></ion-icon></button>
+              <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"> -->
+              <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" onclick="window.location.href='search';"><ion-icon name="search-outline"></ion-icon></button>
             </form>
 
             <li class="nav-item dropdown">
@@ -37,12 +37,11 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">My BookShelf</a>
-                <a class="dropdown-item" href="#">My Profile </a>
+                <a class="dropdown-item" href="/profile">My Profile </a>
                 <!-- need and if statment if they sign in then show log out , if they are not sign in show sign in  -->
-                <a class="dropdown-item" href="{{url_for('logout')}}"></a><button class="btn btn-outline-secondary1 btn-link"> Log Out </button></a>
+                <a class="dropdown-item text-primary" ></a><button class="btn btn-primary btn-link ml-3" onclick="window.location.href='logout';"> Log Out </button></a>
               </div>
             </li>
-           
            
           </ul>
           
@@ -52,7 +51,11 @@
       {% block Content%}
       {% endblock %}
 
+      <footer class="bg-primary">
+        <div>
 
+        </div>
+      </footer>
     
 
 

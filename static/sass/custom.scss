@@ -1,0 +1,36 @@
+$primary-colour : #775144;
+$second-colour:#F7DBA7;
+$third-colour:#C09891;
+$background-colour : #f5f5f5; 
+
+/* import the necessary Bootstrap files */
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+/* -------begin customization-------- */   
+
+$theme-colors: (
+  "primary": $primary-colour,
+  "secondary" : $second-colour,
+  "light" : $second-colour,
+  "dark" : $primary-colour,
+);
+
+$body-bg: $background-colour;
+
+$navbar-light-color : $second-colour ; 
+$navbar-light-hover-color : $third-colour; 
+
+$input-btn-focus-box-shadow: $third-colour;
+
+$link-color:   $second-colour; 
+$link-hover-color: $third-colour;
+
+
+
+/* -------end customization-------- */  
+
+/* finally, import Bootstrap to set the changes! */
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
