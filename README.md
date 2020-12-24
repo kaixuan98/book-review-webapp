@@ -7,9 +7,9 @@ Book review webapp that build with Flask and HTML / CSS(Bootstrap)
 The webapp contain the following feature: 
 
 <ol>
-  <li><strong>Done</strong>The webapp contain a register , login and logout feature</li>
-  <li><strong>Done but need refinement</strong>User able to search for books </li>
-  <li><strong>Working</strong>user able to add the books to its own bookshelf ( session)  </li>
+  <li><strong>Done: </strong>The webapp contain a register , login and logout feature</li>
+  <li><strong>Done but need refinement: </strong>User able to search for books </li>
+  <li><strong>Working: </strong>user able to add the books to its own bookshelf ( session)  </li>
 </ol>
 
 
