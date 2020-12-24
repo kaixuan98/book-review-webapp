@@ -23,7 +23,7 @@ The webapp contain the following feature:
    <li>
     Search Features
   </li>
-  <p>Used Google Books APIT to search for books</p>
+  <p>Used Google Books API to search for books</p>
  </ol>
  
  ---
